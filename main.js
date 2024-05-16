@@ -52,6 +52,13 @@ async function showForecast(url) {
                     <li>Windgeschwindigkeit (km/h): ${Math.round(details.wind_speed * 3.6)}</li>
                 </ul>
             `;
+            
+            for (let i = 0; i <=24; i += 3) {
+                let symbol = feature.properties.timeseries[i].data.next_1_hours.summary.symbol_code;
+                let time = new Date(feature.properties.timeseries[i].time);
+                content +=`<img src="icons/${symbol}.svg" alt="${symbol}" style="width:32px" title="${time.toLocaleString()}">                `
+            }
+            
             L.popup(latlng, {
                 content: content
             }).openOn(themaLayer.forecast);
